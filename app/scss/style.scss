@@ -1,0 +1,73 @@
+body {
+  background: gray; 
+  }
+
+#content{
+    width: 792px;
+    height:528px;
+    margin: 0 auto; 
+    background-color: lightblue;
+    border: 3px solid red;
+    padding: 10px;
+}
+
+#info{
+    border: 1px solid;
+    width: 250px; 
+    height:130px;
+    float: right;
+    position: relative;
+}
+
+h1{
+    text-align: center;
+}
+
+button{
+    position: absolute; 
+    bottom: 0;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 auto;
+}
+
+.cover{
+    border: 1px solid #f96; 
+    border-radius: 10px; 
+    width: 130px; 
+    height:130px;
+    float: left; 
+    margin: 0px;	
+    background-color: #fec; 
+    // overflow: hidden; 
+    // position: relative; 
+    cursor: pointer;
+}
+.foto{
+    border-radius: 10px;
+    margin: 2px;
+    height: 126px;
+    width: 126px;
+    border:#FFF 1px solid;
+}
+
+.cover img {
+    display: none;
+    // position: absolute;
+}
+
+.clicked{
+    width: 130px; 
+    height:130px;
+    float: left; 
+    margin: 1px;
+    background-color: lightblue;
+    border:0;
+    cursor: normal;
+}
