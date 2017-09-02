@@ -2,9 +2,7 @@ let imgs = document.querySelectorAll("img"),
     info = document.querySelector("#info"),
     resetBtn = document.querySelector("button"),
     content = document.querySelector("#content"),
-    first = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    second = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    clicked = true,
+    clicked = false,
     alt1: string,
     alt2: string,
     div1: any = null,
@@ -12,34 +10,26 @@ let imgs = document.querySelectorAll("img"),
     success: number = 0,
     counter: number = 0,
     p = document.querySelector("p"),
-    text: string;
+    text: string,
+    nick:string;
 
-function firstToPair(): number {
-    let elem = first[Math.floor(Math.random() * first.length)];
-    let index = first.indexOf(elem);
-    first.splice(index, 1);
-    return elem;
-}
-
-function secondToPair(): number {
-    let elem = second[Math.floor(Math.random() * second.length)];
-    let index = second.indexOf(elem);
-    second.splice(index, 1);
-    return elem;
-}
-
-function mixImg() {
-    for (let i = 0; i < imgs.length / 2; i++) {
-        let alt = firstToPair();
-        imgs[i].src = 'img/' + alt + '.jpg';
-        imgs[i].alt = '' + alt;
+function enterName(){
+    let centerDiv=document.createElement("div");
+    centerDiv.classList.add("centerDiv");
+    let input=document.createElement("input");
+    input.type="text";
+    input.placeholder="Wpisz nick";
+    let acceptBtn=document.createElement("button");
+    acceptBtn.innerHTML="Graj";
+    centerDiv.appendChild(input);
+    centerDiv.appendChild(acceptBtn);
+    document.body.appendChild(centerDiv);
+    acceptBtn.onclick=function(){
+        nick=input.value;
+        centerDiv.style.display="none";
     }
-    for (let i = imgs.length / 2; i < imgs.length; i++) {
-        let alt = secondToPair();
-        imgs[i].src = 'img/' + alt + '.jpg';
-        imgs[i].alt = '' + alt;
-    }
-};
+    
+}
 
 function createCover() {
     let dc = document.createDocumentFragment();
@@ -63,7 +53,7 @@ function showAllImages() {
         for (let i = 0; i < imgs.length; i++) {
             imgs[i].style.display = "none";
         }
-    }, 3000);
+    }, 2500);
 };
 
 function showImg() {
@@ -75,15 +65,15 @@ function hideImg(img: HTMLImageElement) {
 }
 
 function checkParity() {
-    if (clicked) {
+    if (!clicked) {
         div1 = this;
         alt1 = this.firstChild.alt;
-        clicked = false;
-    } else {
+        clicked = true;
+    } else if (clicked) {
         div2 = this;
         alt2 = this.firstChild.alt;
-        clicked = true;
         counter++;
+        clicked = false;
         if (alt1 === alt2) {
             if (div1 === div2) {
                 setTimeout(() => {
@@ -100,7 +90,7 @@ function checkParity() {
                 }, 500);
                 div1.removeEventListener("click", showImg, false);
                 div2.removeEventListener("click", showImg, false);
-                success++;
+                success++;       
             }
         } else if (alt1 !== alt2) {
             setTimeout(() => {
@@ -134,18 +124,18 @@ function shuffleImgs() {
     }
 }
 
-
 function resetGame() {
+    clicked = false;
     success = 0;
     counter = 0;
     shuffleImgs();
     updateInfo();
     showAllImages();
-    // addListeners();
+    addListeners();
     let divs = document.querySelectorAll(".cover");
     for (let i = 0; i < divs.length; i++) {
         divs[i].classList.remove("clicked");
-        divs[i].addEventListener("click", showImg, false);
+        // divs[i].addEventListener("click", showImg, false);
     }
 }
 
@@ -159,7 +149,8 @@ function addListeners() {
 }
 
 (function init() {
-    mixImg();
+    enterName();
+    shuffleImgs();
     createCover();
     showAllImages()
     addListeners();
